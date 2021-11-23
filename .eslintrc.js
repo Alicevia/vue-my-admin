@@ -6,9 +6,11 @@ module.exports = {
   },
   extends: ['plugin:vue/essential', 'airbnb-base'],
   parserOptions: {
-    ecmaVersion: 13,
+    ecmaVersion: 12,
     sourceType: 'module',
   },
   plugins: ['vue'],
-  rules: {},
-}
+  rules: {
+    'vue/no-multiple-template-root': 1,
+  },
+};
