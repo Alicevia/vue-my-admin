@@ -3,7 +3,10 @@
   <HelloWorld msg="Hello Vue 3 + Vite" />
 </template>
 <script setup>
+import { reactive } from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
+
+function a() {}
 </script>
 <style>
 #app {

@@ -12,5 +12,6 @@ module.exports = {
   plugins: ['vue'],
   rules: {
     'vue/no-multiple-template-root': 1,
+    'no-unused-vars': 1,
   },
 };
