@@ -1,20 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <n-config-provider :theme="darkTheme" :locale="zhCN" :date-locale="dateZhCN">
+    <n-message-provider>
+      <router-view></router-view>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 <script setup>
-import { reactive } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import {
+  createTheme,
+  inputDark,
+  datePickerDark,
+  NConfigProvider,
+  NInput,
+  NDatePicker,
+  NSpace,
+  zhCN,
+  dateZhCN,
+  NMessageProvider,
+} from 'naive-ui'
 
-function a() {}
+const darkTheme = createTheme([])
 </script>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
