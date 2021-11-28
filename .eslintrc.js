@@ -4,20 +4,26 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['plugin:vue/essential', 'airbnb-base'],
+  extends: ['plugin:vue/essential', 'airbnb-base', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['vue'],
+  plugins: ['vue', 'prettier'],
   rules: {
-    'vue/no-multiple-template-root': 1,
-    'no-unused-vars': 1,
-    'linebreak-style': 0,
-    semi: 0,
-    'vue/multi-word-component-names': 0,
-    'object-curly-newline': 0,
+    'prettier/prettier': 0,
+    'import/prefer-default-export': 0, // 模块不需要默认导出
+    'no-param-reassign': 0,
     'vue/no-v-model-argument': 0,
-    'import/no-extraneous-dependencies': 0,
+    'no-unused-vars':1
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', './src']],
+
+        extensions: ['.js', '.jsx'],
+      },
+    },
   },
 }

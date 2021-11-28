@@ -5,9 +5,14 @@ const routes = [
     path: '/login',
     component: () => import('../views/login/index.vue'),
   },
+  {
+    path: '/',
+    component: () => import('@/layout/basicLayout.vue'),
+  },
 ]
-
-export default new CreateRouter({
+const router = new CreateRouter({
   history: createWebHistory(),
   routes,
 })
+
+export default router

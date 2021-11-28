@@ -21,4 +21,13 @@ import {
 
 const darkTheme = createTheme([])
 </script>
-<style></style>
+<style>
+body,
+html,
+#app,
+.n-config-provider {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+</style>
