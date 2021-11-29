@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { login } from '@/api/user'
 import { getItem, setItem } from '@/utils/storage'
-import { TOKEN } from '@/constant'
+import { ROUTE, TOKEN } from '@/constant'
 import router from '@/router'
 
 export default defineStore({
@@ -17,7 +17,7 @@ export default defineStore({
         this.token = data.token
         setItem(TOKEN, this.token)
         this.isLogin = true
-        router.push({ path: '/' })
+        router.push({ name: ROUTE.HOME })
         return data
       } catch (e) {
         return Promise.reject(e)
