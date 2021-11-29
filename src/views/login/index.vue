@@ -54,7 +54,7 @@ const submit = () => {
     .catch((e) => {})
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login {
   margin: 20% auto 0;
   width: 30%;

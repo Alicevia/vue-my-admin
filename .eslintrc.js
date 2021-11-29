@@ -15,7 +15,8 @@ module.exports = {
     'import/prefer-default-export': 0, // 模块不需要默认导出
     'no-param-reassign': 0,
     'vue/no-v-model-argument': 0,
-    'no-unused-vars':1
+    'no-unused-vars': 1,
+    'vue/multi-word-component-names': 0,
   },
   settings: {
     'import/resolver': {
