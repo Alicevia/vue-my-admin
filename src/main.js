@@ -11,6 +11,8 @@ import {
   NLayoutHeader,
   NLayoutSider,
   NRow,
+  NH2,
+  NLayoutFooter,
 } from 'naive-ui'
 import App from './App.vue'
 import router from './router'
@@ -29,6 +31,8 @@ const naive = create({
     NLayoutContent,
     NLayoutHeader,
     NLayoutSider,
+    NLayoutFooter,
+    NH2,
   ],
 })
 const app = createApp(App)
