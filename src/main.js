@@ -18,6 +18,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import '@/router/permission'
+import './style/index.scss'
 
 const naive = create({
   components: [

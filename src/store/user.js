@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { login } from '@/api/user'
-import { getItem, setItem } from '@/utils/storage'
+import { getItem, removeAllItem, setItem } from '@/utils/storage'
 import { ROUTE, TOKEN } from '@/constant'
 import router from '@/router'
+import { setTimeStamp } from '@/utils/auth'
 
 export default defineStore({
   id: 'user',
@@ -16,12 +17,16 @@ export default defineStore({
         const data = await login(params)
         this.token = data.token
         setItem(TOKEN, this.token)
-        this.isLogin = true
+        setTimeStamp()
         router.push({ name: ROUTE.HOME })
         return data
       } catch (e) {
         return Promise.reject(e)
       }
+    },
+    logout() {
+      this.token = ''
+      removeAllItem()
     },
   },
 })

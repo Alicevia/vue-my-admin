@@ -1,0 +1,13 @@
+:export {
+  menuText: var(--menuText);
+  menuActiveText: var(--menuActiveText);
+  subMenuActiveText: var(--subMenuActiveText);
+
+  menuBg: var(--menuBg);
+  menuHover: var(--menuHover);
+
+  subMenuBg: var(--subMenuBg);
+  subMenuHover: var(--subMenuHover);
+
+  sideBarWidth: var(--sideBarWidth);
+}

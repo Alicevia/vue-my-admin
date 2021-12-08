@@ -26,5 +26,12 @@ export default defineConfig(({ mode }) => {
       },
       extensions: ['.js', '.vue'],
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import './src/style/variables.scss';`,
+        },
+      },
+    },
   }
 })

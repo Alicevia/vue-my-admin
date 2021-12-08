@@ -8,27 +8,15 @@
 <script setup>
 import {
   createTheme,
-  inputDark,
-  datePickerDark,
   NConfigProvider,
-  NInput,
-  NDatePicker,
-  NSpace,
   zhCN,
   dateZhCN,
   NMessageProvider,
 } from 'naive-ui'
+import { useMyTheme } from './func/theme'
+
+useMyTheme()
 
 const darkTheme = createTheme([])
 </script>
-<style>
-body,
-html,
-#app,
-.n-config-provider {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: pink;
-}
-</style>
+<style></style>
