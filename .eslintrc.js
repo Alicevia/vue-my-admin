@@ -17,6 +17,9 @@ module.exports = {
     'vue/no-v-model-argument': 0,
     'no-unused-vars': 1,
     'vue/multi-word-component-names': 0,
+    eqeqeq: 0,
+    'no-plusplus': 0,
+    'import/no-cycle': 0,
   },
   settings: {
     'import/resolver': {

@@ -1,39 +1,48 @@
 import axios from 'axios'
-import { useMessage } from 'naive-ui'
 import config from '../config'
-import store from '@/store'
+import userStore from '@/store/user'
 import { isCheckTimeout } from './auth'
 
-const message = useMessage()
 const service = axios.create({
-  timeout: 5000,
+  timeout: 15000,
   baseURL: config.VITE_BASE_API,
 })
 service.interceptors.request.use(
   (cfg) => {
-    if (store.state.value.user.token) {
+    const user = userStore()
+    if (user.token) {
       if (isCheckTimeout()) {
-        store.state.user.logout()
+        user.logout() // token主动设置超时
+        return Promise.reject(cfg)
       }
+      cfg.headers.Authorization = `Bearer ${user.token}`
     }
-
     return cfg
   },
-  (err) => Promise.reject(err),
+  (err) => {
+    console.dir(err, 'configerr')
+    return Promise.reject(err)
+  },
 )
 
 service.interceptors.response.use(
   (response) => {
-    const { success, message: msg, data } = response.data
+    const { $message } = window
+    const { success, message, data } = response.data
     if (success) {
       return data
     }
-    message.error(msg)
+    $message.error(message)
     return Promise.reject(response)
   },
   (error) => {
-    console.log(message)
-    message.error(error.message)
+    const user = userStore()
+    const { $message } = window
+    const { response, message } = error
+    $message.error(response.data?.message || response.data || message)
+    if (response.status == 401) {
+      user.logout()
+    }
     return Promise.reject(error)
   },
 )

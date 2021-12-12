@@ -5,13 +5,14 @@ import { defineConfig, loadEnv } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd())
+
   return {
     plugins: [vue()],
     server: {
       host: '0.0.0.0',
       proxy: {
         '/api': {
-          target: env.VITE_BASE_API,
+          target: 'https://api.imooc-admin.lgdsunday.club',
           changeOrigin: true,
         },
       },

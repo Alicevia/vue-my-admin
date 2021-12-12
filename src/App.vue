@@ -1,22 +1,9 @@
 <template>
-  <n-config-provider :theme="darkTheme" :locale="zhCN" :date-locale="dateZhCN">
-    <n-message-provider>
-      <router-view></router-view>
-    </n-message-provider>
-  </n-config-provider>
+  <router-view></router-view>
 </template>
 <script setup>
-import {
-  createTheme,
-  NConfigProvider,
-  zhCN,
-  dateZhCN,
-  NMessageProvider,
-} from 'naive-ui'
-import { useMyTheme } from './func/theme'
+import { useMessage } from 'naive-ui'
 
-useMyTheme()
-
-const darkTheme = createTheme([])
+window.$message = useMessage()
 </script>
 <style></style>

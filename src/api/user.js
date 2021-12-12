@@ -7,4 +7,8 @@ export const login = (data) =>
     data,
   })
 
-export default {}
+export const userInfo = () =>
+  request({
+    url: '/sys/profile',
+    method: 'get',
+  })

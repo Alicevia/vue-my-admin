@@ -1,6 +1,98 @@
 <template>
-  <div>123</div>
+  <n-layout-sider
+    collapse-mode="width"
+    :collapsed-width="60"
+    :width="218"
+    :collapsed="menuState.collapsed"
+    show-trigger
+    @collapse="menuState.collapsed = true"
+    @expand="menuState.collapsed = false"
+  >
+    <n-layout-header>
+      <div class="logo">ALICEVIA</div>
+    </n-layout-header>
+    <n-layout-content
+      style="top: 50px; bottom: 0; background-color: pink"
+      position="absolute"
+      :native-scrollbar="false"
+    >
+      <n-menu class="menu" v-bind="menuState" />
+    </n-layout-content>
+  </n-layout-sider>
 </template>
 
-<script setup></script>
-<style lang="scss" scoped></style>
+<script setup>
+import { useRouter } from 'vue-router'
+
+import { h, reactive } from 'vue'
+import { NIcon } from 'naive-ui'
+import { BookOutline } from '@vicons/ionicons5'
+
+function isEmpty(data) {
+  if (!data) return true
+  if (JSON.stringify(data) == '{}') return true
+  if (JSON.stringify(data) == '[]') return true
+  return false
+}
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
+// 将meta内的字段拷贝到外层
+function assignMeta(ary) {
+  for (let index = 0; index < ary.length; index++) {
+    const item = ary[index]
+    if (item.meta?.icon) {
+      Object.assign(item, item.meta || {})
+      item.icon = renderIcon(BookOutline)
+    } else {
+      ary.splice(index, 1)
+      index--
+    }
+  }
+}
+const generateMenus = (routes) => {
+  const childrenRoutes = routes.filter((item) => item.children.length > 0)
+  const result = childrenRoutes.reduce((pre, item) => {
+    if (item.path == '/') {
+      assignMeta(item.children)
+      pre.push(...item.children.filter((route) => route.meta?.icon))
+    } else {
+      Object.assign(item, item.meta || {})
+      item.icon = renderIcon(BookOutline)
+      assignMeta(item.children)
+      pre.push(item)
+    }
+    return pre
+  }, [])
+
+  return result
+}
+
+const router = useRouter()
+const menuState = reactive({
+  collapsedWidth: 64,
+  collapsedIconSize: 22,
+  collapsed: false,
+  options: generateMenus(router.getRoutes()),
+  keyField: 'title',
+  labelField: 'title',
+  'onUpdate:value': (key, item) => {
+    router.push({ name: item.name })
+  },
+})
+</script>
+<style lang="scss" scoped>
+.logo {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 50px;
+  background-color: rgb(245, 103, 21);
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.menu {
+  background-color: pink;
+}
+</style>

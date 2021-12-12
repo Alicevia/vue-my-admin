@@ -18,5 +18,5 @@ export const removeItem = (key) => {
   localStorage.removeItem(key)
 }
 export const removeAllItem = () => {
-  localStorage.removeAllItem()
+  localStorage.clear()
 }
