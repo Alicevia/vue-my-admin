@@ -15,10 +15,7 @@
     <n-layout position="absolute" has-sider>
       <SideBar></SideBar>
       <n-layout>
-        <n-layout-header style="height: 50px" bordered
-          >颐和园路</n-layout-header
-        >
-
+        <NavBar></NavBar>
         <div style="position: absolute; top: 50px; width: 100%; height: 100%">
           <router-view></router-view>
         </div>
@@ -32,10 +29,5 @@ import { inject, ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 import SideBar from './components/SideBar.vue'
 import Main from './components/Main.vue'
-
-const theme = inject('theme')
-
-// const message = useMessage()
-// message.success('ok')
 </script>
 <style lang="scss" scoped></style>

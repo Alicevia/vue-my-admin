@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import '@/router/permission'
 import './style/index.scss'
-
+import i18n from './i18n/index'
 // const naive = create({
 //   components: [
 //     NButton,
@@ -25,4 +25,5 @@ import './style/index.scss'
 //   ],
 // })
 const app = createApp(App)
+app.use(i18n)
 app.use(naive).use(store).use(router).mount('#app')

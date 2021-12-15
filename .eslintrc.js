@@ -30,4 +30,12 @@ module.exports = {
       },
     },
   },
+  globals: {
+    $message: true,
+    __dirname: true,
+    process: true,
+    defineProps: true,
+    defineEmits: true,
+    defineExpose: true,
+  },
 }

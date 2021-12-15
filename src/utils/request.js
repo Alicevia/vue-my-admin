@@ -1,6 +1,6 @@
 import axios from 'axios'
 import config from '../config'
-import userStore from '@/store/user'
+import userStore from '@/store/userStore'
 import { isCheckTimeout } from './auth'
 
 const service = axios.create({

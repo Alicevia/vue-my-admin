@@ -8,11 +8,14 @@
     @collapse="menuState.collapsed = true"
     @expand="menuState.collapsed = false"
   >
-    <n-layout-header>
-      <div class="logo">ALICEVIA</div>
+    <n-layout-header style="height: 50px">
+      <div class="logo">
+        <n-avatar size="small" :src="userInfo.avatar" />
+        <h1 v-show="!menuState.collapsed" class="logo-title">ALICEVIA</h1>
+      </div>
     </n-layout-header>
     <n-layout-content
-      style="top: 50px; bottom: 0; background-color: pink"
+      class="content"
       position="absolute"
       :native-scrollbar="false"
     >
@@ -24,9 +27,14 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
-import { h, reactive } from 'vue'
+import { h, reactive, inject, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { BookOutline } from '@vicons/ionicons5'
+import userStore from '@/store/userStore'
+
+const user = userStore()
+const userInfo = computed(() => user.userInfo)
+const theme = inject('theme')
 
 function isEmpty(data) {
   if (!data) return true
@@ -82,17 +90,28 @@ const menuState = reactive({
 })
 </script>
 <style lang="scss" scoped>
+.content {
+  top: 50px;
+  bottom: 0;
+  background-color: v-bind('theme.menuBg');
+}
 .logo {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  line-height: 50px;
-  background-color: rgb(245, 103, 21);
-  color: white;
+  color: v-bind('theme.menuText');
+  background-color: v-bind('theme.menuBg');
   font-weight: bold;
   text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo-title {
+    margin-left: 15px;
+  }
 }
 .menu {
-  background-color: pink;
 }
 </style>

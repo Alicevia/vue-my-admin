@@ -12,7 +12,9 @@
         />
       </n-form-item>
       <n-form-item>
-        <n-button @click="submit" style="width: 100%">登录</n-button>
+        <n-button @click="submit" style="width: 100%">{{
+          $t('login.loginBtn')
+        }}</n-button>
       </n-form-item>
     </n-form>
   </div>
@@ -21,7 +23,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import md5 from 'md5'
-import userStore from '@/store/user'
+import userStore from '@/store/userStore'
 
 const user = userStore()
 const formRef = ref(null)

@@ -1,12 +1,11 @@
 <template>
   <div class="profile">
-    <div style="height: 1100px">个xx人中心</div>
+    <n-pagination :page-count="100" show-size-picker />
+    <div>{{ $t('navBar.logout') }}</div>
   </div>
 </template>
 
-<script setup>
-import {} from 'vue'
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 .profile {
