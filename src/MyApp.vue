@@ -29,6 +29,7 @@ const localeMap = {
     dateLocale: dateEnUS,
   },
 }
+
 const localeState = computed(() => localeMap[app.language])
 const themeOverrides = {
   Avatar: {

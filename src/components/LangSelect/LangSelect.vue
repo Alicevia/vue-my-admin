@@ -22,11 +22,10 @@ const options = computed(() =>
 const language = computed(() => messages[app.language].label)
 
 const handleSelect = (key) => {
-  if (key == app.language) {
-    $message.warning('你当前已选择该语言')
-  } else {
+  if (key != app.language) {
     app.setLanguage(key)
     i18n.locale.value = key
+    $message.success(i18n.t('toast.switchLangSuccess'))
   }
 }
 </script>

@@ -20,7 +20,7 @@ const routes = [
         name: ROUTE.PROFILE,
         component: () => import('@/views/profile/index.vue'),
         meta: {
-          title: '个人中心',
+          title: ROUTE.PROFILE,
           icon: 'profile',
         },
       },
@@ -45,53 +45,52 @@ const privateRoutes = [
     component: BasicLayout,
     redirect: '/user/manage',
     meta: {
-      title: 'user',
+      title: ROUTE.USER,
       icon: 'personnel',
     },
     children: [
       {
-        path: ROUTE.MANAGE,
-        name: ROUTE.MANAGE,
+        path: ROUTE.USER_MANAGE,
+        name: ROUTE.USER_MANAGE,
         component: () => import('@/views/user-manage/index.vue'),
         meta: {
-          title: 'userManage',
+          title: ROUTE.USER_MANAGE,
           icon: 'personnel-manage',
         },
       },
       {
-        path: ROUTE.ROLE,
-        name: ROUTE.ROLE,
+        path: ROUTE.ROLE_LIST,
+        name: ROUTE.ROLE_LIST,
         component: () => import('@/views/role-list/index.vue'),
         meta: {
-          title: 'roleList',
+          title: ROUTE.ROLE_LIST,
           icon: 'role',
         },
       },
       {
-        path: ROUTE.PERMISSION,
-        name: ROUTE.PERMISSION,
+        path: ROUTE.PERMISSION_LIST,
+        name: ROUTE.PERMISSION_LIST,
         component: () => import('@/views/permission-list/index.vue'),
         meta: {
-          title: 'permission',
+          title: ROUTE.PERMISSION_LIST,
           icon: 'permission',
         },
       },
       {
-        path: ROUTE.INFO,
-        name: ROUTE.INFO,
-
+        path: ROUTE.USER_INFO,
+        name: ROUTE.USER_INFO,
         component: () => import('@/views/user-info/index.vue'),
         props: (route) => ({ id: route.query.id }),
         meta: {
-          title: 'userinfo',
+          title: ROUTE.USER_INFO,
         },
       },
       {
-        path: ROUTE.IMPORT,
-        name: ROUTE.IMPORT,
+        path: ROUTE.EXCEL_IMPORT,
+        name: ROUTE.EXCEL_IMPORT,
         component: () => import('@/views/import/index.vue'),
         meta: {
-          title: 'excelImport',
+          title: ROUTE.EXCEL_IMPORT,
         },
       },
     ],
@@ -102,16 +101,16 @@ const privateRoutes = [
     component: BasicLayout,
     redirect: '/article/ranking',
     meta: {
-      title: 'article',
+      title: ROUTE.ARTICLE,
       icon: 'article',
     },
     children: [
       {
         path: '/article/ranking',
-        name: ROUTE.RANKING,
+        name: ROUTE.ARTICLE_RANKING,
         component: () => import('@/views/article-ranking/index.vue'),
         meta: {
-          title: 'articleRanking',
+          title: ROUTE.ARTICLE_RANKING,
           icon: 'article-ranking',
         },
       },
@@ -120,15 +119,15 @@ const privateRoutes = [
         name: ROUTE.ARTICLE_DETAIL,
         component: () => import('@/views/article-detail/index.vue'),
         meta: {
-          title: 'articleDetail',
+          title: ROUTE.ARTICLE_DETAIL,
         },
       },
       {
         path: '/article/create',
-        name: ROUTE.CREATE,
+        name: ROUTE.ARTICLE_CREATE,
         component: () => import('@/views/article-create/index.vue'),
         meta: {
-          title: 'articleCreate',
+          title: ROUTE.ARTICLE_CREATE,
           icon: 'article-create',
         },
       },
@@ -137,7 +136,7 @@ const privateRoutes = [
         name: ROUTE.ARTICLE_EDITOR,
         component: () => import('@/views/article-create/index.vue'),
         meta: {
-          title: 'articleEditor',
+          title: ROUTE.ARTICLE_EDITOR,
         },
       },
     ],

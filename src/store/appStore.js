@@ -1,12 +1,17 @@
 import { defineStore } from 'pinia'
-import { LANG } from '@/constant'
+import { LANG, DEFAULT_LANG } from '@/constant'
 import { getItem, setItem } from '@/utils/storage'
 
 export default defineStore({
   id: 'app',
   state: () => ({
-    language: getItem(LANG) || 'zhCN',
+    language: getItem(LANG) || DEFAULT_LANG,
   }),
+  getters: {
+    locale() {
+      return this.language
+    },
+  },
 
   actions: {
     setLanguage(lang) {

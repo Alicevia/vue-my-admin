@@ -5,6 +5,7 @@
         <Breadrumb></Breadrumb>
       </div>
       <div class="right">
+        <ChangeTheme></ChangeTheme>
         <LangSelect></LangSelect>
         <div class="avatar">
           <n-dropdown @select="handleSelect" :options="options">
@@ -17,11 +18,12 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useUser from '@/store/userStore'
 import Breadrumb from './Breadrumb.vue'
 import LangSelect from '@/components/LangSelect/LangSelect.vue'
+import ChangeTheme from './ChangeTheme.vue'
 
 const { t } = useI18n()
 

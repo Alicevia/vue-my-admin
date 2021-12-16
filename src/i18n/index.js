@@ -1,4 +1,6 @@
 import { createI18n } from 'vue-i18n'
+import { LANG, DEFAULT_LANG } from '@/constant'
+import { getItem } from '@/utils/storage'
 
 const modules = import.meta.globEager('./*.js')
 const messages = Reflect.ownKeys(modules).reduce((pre, item) => {
@@ -6,7 +8,8 @@ const messages = Reflect.ownKeys(modules).reduce((pre, item) => {
   pre[temp.key] = temp
   return pre
 }, {})
-const locale = 'zhCN'
+
+const locale = getItem(LANG) || DEFAULT_LANG
 const i18 = createI18n({
   legacy: false,
   globalInjection: true,

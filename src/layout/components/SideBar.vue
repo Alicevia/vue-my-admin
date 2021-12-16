@@ -30,8 +30,10 @@ import { useRouter } from 'vue-router'
 import { h, reactive, inject, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { BookOutline } from '@vicons/ionicons5'
+import { useI18n } from 'vue-i18n'
 import userStore from '@/store/userStore'
 
+const { t } = useI18n()
 const user = userStore()
 const userInfo = computed(() => user.userInfo)
 const theme = inject('theme')
@@ -52,6 +54,7 @@ function assignMeta(ary) {
     if (item.meta?.icon) {
       Object.assign(item, item.meta || {})
       item.icon = renderIcon(BookOutline)
+      item.title = t(`route.${item.title}`)
     } else {
       ary.splice(index, 1)
       index--
@@ -68,6 +71,7 @@ const generateMenus = (routes) => {
       Object.assign(item, item.meta || {})
       item.icon = renderIcon(BookOutline)
       assignMeta(item.children)
+      item.title = t(`route.${item.title}`)
       pre.push(item)
     }
     return pre
@@ -81,7 +85,7 @@ const menuState = reactive({
   collapsedWidth: 64,
   collapsedIconSize: 22,
   collapsed: false,
-  options: generateMenus(router.getRoutes()),
+  options: computed(() => generateMenus(router.getRoutes())),
   keyField: 'title',
   labelField: 'title',
   'onUpdate:value': (key, item) => {

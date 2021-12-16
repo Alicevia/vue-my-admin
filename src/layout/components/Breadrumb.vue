@@ -6,7 +6,7 @@
         v-for="item in breadcrumbState.list"
         :key="item.path"
       >
-        {{ item.meta.title }}
+        {{ $t(`route.${item.meta.title}`) }}
       </n-breadcrumb-item>
     </transition-group>
   </n-breadcrumb>
