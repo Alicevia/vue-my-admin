@@ -3,6 +3,7 @@
     :locale="localeState.locale"
     :date-locale="localeState.dateLocale"
     :themeOverrides="themeOverrides"
+    :theme="myTheme"
   >
     <n-message-provider>
       <App></App>
@@ -19,6 +20,8 @@ import appStore from './store/appStore'
 
 const { theme } = useMyTheme()
 const app = appStore()
+const myTheme = computed(() => app.myTheme)
+
 const localeMap = {
   zhCN: {
     locale: zhCN,
@@ -34,11 +37,6 @@ const localeState = computed(() => localeMap[app.language])
 const themeOverrides = {
   Avatar: {
     color: 'transparent',
-  },
-  Menu: {
-    color: theme.menuBg,
-    itemTextColor: theme.menuText,
-    itemIconColor: theme.menuText,
   },
 }
 

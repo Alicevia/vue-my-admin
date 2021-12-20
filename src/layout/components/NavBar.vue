@@ -1,11 +1,12 @@
 <template>
-  <n-layout-header style="height: 50px">
+  <n-layout-header bordered style="height: 50px">
     <div class="user-center">
       <div class="left">
         <Breadrumb></Breadrumb>
       </div>
       <div class="right">
         <ChangeTheme></ChangeTheme>
+        <DarkOrWhiteTheme></DarkOrWhiteTheme>
         <LangSelect></LangSelect>
         <div class="avatar">
           <n-dropdown @select="handleSelect" :options="options">
@@ -24,6 +25,7 @@ import useUser from '@/store/userStore'
 import Breadrumb from './Breadrumb.vue'
 import LangSelect from '@/components/LangSelect/LangSelect.vue'
 import ChangeTheme from './ChangeTheme.vue'
+import DarkOrWhiteTheme from './DarkOrWhiteTheme.vue'
 
 const { t } = useI18n()
 
@@ -61,8 +63,7 @@ const handleSelect = (key) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
-  box-shadow: 1px 1px 1px rgb(223, 223, 223);
+  /* box-shadow: 1px 1px 1px rgb(223, 223, 223); */
 
   .right {
     display: flex;

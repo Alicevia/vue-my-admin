@@ -1,5 +1,6 @@
 <template>
   <n-layout-sider
+    bordered
     collapse-mode="width"
     :collapsed-width="60"
     :width="218"
@@ -8,7 +9,7 @@
     @collapse="menuState.collapsed = true"
     @expand="menuState.collapsed = false"
   >
-    <n-layout-header style="height: 50px">
+    <n-layout-header bordered style="height: 50px">
       <div class="logo">
         <n-avatar size="small" :src="userInfo.avatar" />
         <h1 v-show="!menuState.collapsed" class="logo-title">ALICEVIA</h1>
@@ -19,7 +20,7 @@
       position="absolute"
       :native-scrollbar="false"
     >
-      <n-menu class="menu" v-bind="menuState" />
+      <n-menu v-bind="menuState" />
     </n-layout-content>
   </n-layout-sider>
 </template>
@@ -36,7 +37,6 @@ import userStore from '@/store/userStore'
 const { t } = useI18n()
 const user = userStore()
 const userInfo = computed(() => user.userInfo)
-const theme = inject('theme')
 
 function isEmpty(data) {
   if (!data) return true
@@ -97,25 +97,19 @@ const menuState = reactive({
 .content {
   top: 50px;
   bottom: 0;
-  background-color: v-bind('theme.menuBg');
 }
 .logo {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: v-bind('theme.menuText');
-  background-color: v-bind('theme.menuBg');
   font-weight: bold;
   text-align: center;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
   .logo-title {
     margin-left: 15px;
   }
-}
-.menu {
 }
 </style>

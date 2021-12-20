@@ -1,16 +1,4 @@
 <template>
-  <!-- <n-layout has-sider style="height: 100%">
-    <SideBar></SideBar>
-    <n-layout position="absolute">
-      <NavBar></NavBar>
-      <n-layout-content
-        style="top: 50px; bottom: 0; background-color: pink"
-        position="absolute"
-      >
-        <router-view></router-view>
-      </n-layout-content>
-    </n-layout>
-  </n-layout> -->
   <n-layout style="height: 100%">
     <n-layout position="absolute" has-sider>
       <SideBar></SideBar>

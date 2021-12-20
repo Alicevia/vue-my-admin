@@ -1,9 +1,7 @@
 <template>
   <n-popover trigger="hover">
     <template #trigger>
-      <n-icon size="20">
-        <ColorPaletteOutline style="color: hotpink"></ColorPaletteOutline>
-      </n-icon>
+      <n-button quaternary>主题</n-button>
     </template>
     <div style="height: 50px; width: 200px">
       <n-color-picker
@@ -18,28 +16,13 @@
       />
     </div>
   </n-popover>
-  <!-- <n-popselect v-model:value="color" width="trigger">
- 
-    <n-color-picker
-      
-    />
-  </n-popselect> -->
-  <!-- <n-popover :style="{ width: '100px' }" width="trigger">
-    <template #trigger>
-     
-    </template>
-    <div>
-      
-    </div>
-  </n-popover> -->
 </template>
 
 <script setup>
 import { ColorPaletteOutline } from '@vicons/ionicons5'
-import { ref, watch, inject } from 'vue'
+import { ref, watch, inject, computed } from 'vue'
 
 const theme = inject('theme')
-console.log(theme)
 
 const color = ref()
 watch(color, (newColor) => {
