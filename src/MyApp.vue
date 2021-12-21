@@ -3,16 +3,18 @@
     :locale="localeState.locale"
     :date-locale="localeState.dateLocale"
     :themeOverrides="themeOverrides"
-    :theme="myTheme"
+    :theme="currentTheme.key"
   >
-    <n-message-provider>
-      <App></App>
-    </n-message-provider>
+    <n-dialog-provider>
+      <n-message-provider>
+        <App></App>
+      </n-message-provider>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 
 <script setup>
-import { zhCN, dateZhCN, enUS, dateEnUS, useOsTheme } from 'naive-ui'
+import { zhCN, dateZhCN, enUS, dateEnUS } from 'naive-ui'
 import { computed } from 'vue'
 import App from './App.vue'
 import { useMyTheme } from './hooks/theme'
@@ -20,7 +22,7 @@ import appStore from './store/appStore'
 
 const { theme } = useMyTheme()
 const app = appStore()
-const myTheme = computed(() => app.myTheme)
+const currentTheme = computed(() => app.currentTheme)
 
 const localeMap = {
   zhCN: {
@@ -34,12 +36,14 @@ const localeMap = {
 }
 
 const localeState = computed(() => localeMap[app.language])
+// const themeOverrides = computed(() => app.userThemeOverrides)
 const themeOverrides = {
-  Avatar: {
-    color: 'transparent',
+  common: {
+    primaryColor: 'rgba(222, 31, 31, 1)',
+    primaryColorHover: 'rgb(225, 53, 53)',
+    primaryColorPressed: 'rgb(200, 28, 28)',
+    primaryColorSuppl: 'rgb(225, 53, 53)',
   },
 }
-
-const osThemeRef = useOsTheme()
 </script>
 <style lang="scss" scoped></style>

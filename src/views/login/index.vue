@@ -1,23 +1,25 @@
 <template>
-  <div class="login">
-    <n-form :model="formState" ref="formRef" :rules="rules">
-      <n-form-item path="username" label="用户名">
-        <n-input v-model:value="formState.username" @keydown.enter.prevent />
-      </n-form-item>
-      <n-form-item path="password" label="密码">
-        <n-input
-          v-model:value="formState.password"
-          type="password"
-          @keydown.enter.prevent
-        />
-      </n-form-item>
-      <n-form-item>
-        <n-button @click="submit" style="width: 100%">{{
-          $t('login.loginBtn')
-        }}</n-button>
-      </n-form-item>
-    </n-form>
-  </div>
+  <n-layout style="height: 100%">
+    <div class="login">
+      <n-form class="form" :model="formState" ref="formRef" :rules="rules">
+        <n-form-item path="username" label="用户名">
+          <n-input v-model:value="formState.username" @keydown.enter.prevent />
+        </n-form-item>
+        <n-form-item path="password" label="密码">
+          <n-input
+            v-model:value="formState.password"
+            type="password"
+            @keydown.enter.prevent
+          />
+        </n-form-item>
+        <n-form-item>
+          <n-button @click="submit" style="width: 100%">{{
+            $t('login.loginBtn')
+          }}</n-button>
+        </n-form-item>
+      </n-form>
+    </div>
+  </n-layout>
 </template>
 
 <script setup>
@@ -58,7 +60,13 @@ const submit = () => {
 </script>
 <style lang="scss" scoped>
 .login {
-  margin: 20% auto 0;
-  width: 30%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .form {
+    width: 30%;
+  }
 }
 </style>
