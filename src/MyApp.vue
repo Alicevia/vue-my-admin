@@ -36,14 +36,6 @@ const localeMap = {
 }
 
 const localeState = computed(() => localeMap[app.language])
-// const themeOverrides = computed(() => app.userThemeOverrides)
-const themeOverrides = {
-  common: {
-    primaryColor: 'rgba(222, 31, 31, 1)',
-    primaryColorHover: 'rgb(225, 53, 53)',
-    primaryColorPressed: 'rgb(200, 28, 28)',
-    primaryColorSuppl: 'rgb(225, 53, 53)',
-  },
-}
+const themeOverrides = computed(() => app.userThemeOverrides)
 </script>
 <style lang="scss" scoped></style>

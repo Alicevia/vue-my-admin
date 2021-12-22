@@ -18,9 +18,10 @@ const currentTheme = computed(() => app.currentTheme)
 const themeList = computed(() =>
   app.themeList.map((item) => ({
     ...item,
-    disabled: app.currentTheme.label == item.label,
+    disabled: currentTheme.value.label == item.label,
   })),
 )
+
 const toggleTheme = (_, b) => {
   app.changeTheme(b)
 }

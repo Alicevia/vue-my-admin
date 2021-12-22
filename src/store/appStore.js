@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { darkTheme } from 'naive-ui'
 import color from 'css-color-function'
-import { LANG, DEFAULT_LANG, MY_THEME } from '@/constant'
+import { LANG, DEFAULT_LANG, THEME, USER_THEME_OVERRIDES } from '@/constant'
 import { getItem, setItem } from '@/utils/storage'
 
 export default defineStore({
@@ -19,20 +19,37 @@ export default defineStore({
           key: darkTheme,
         },
       ],
-      currentTheme: getItem(MY_THEME) || {
+      currentTheme: getItem(THEME) || {
         label: '浅色',
         key: null,
       },
-      userThemeOverrides: {
-        Avatar: {
-          color: 'transparent',
-        },
+      userSelectColor: getItem(USER_THEME_OVERRIDES) || {
+        primaryColor: 'rgb(255,125,125)',
       },
     }
   },
   getters: {
     locale() {
       return this.language
+    },
+    userThemeOverrides() {
+      return {
+        common: {
+          primaryColor: this.userSelectColor.primaryColor,
+          primaryColorHover: color.convert(
+            `color(${this.userSelectColor.primaryColor} tint(10%))`,
+          ),
+          primaryColorSuppl: color.convert(
+            `color(${this.userSelectColor.primaryColor} tint(10%))`,
+          ),
+          primaryColorPressed: color.convert(
+            `color(${this.userSelectColor.primaryColor} shade(10%))`,
+          ),
+        },
+        Avatar: {
+          color: 'transparent',
+        },
+      }
     },
   },
   actions: {
@@ -44,25 +61,13 @@ export default defineStore({
       this.currentTheme.disabled = false
       theme.disabled = true
       this.currentTheme = theme
-      setItem(MY_THEME, theme)
+      setItem(THEME, theme)
     },
-    changeUserThemeColor(newColor) {
-      this.userThemeOverrides.common = {
-        primaryColor: newColor,
-        primaryColorHover: color.convert(`color(${newColor} tint(10%))`),
-        primaryColorSuppl: color.convert(`color(${newColor} tint(10%))`),
-        primaryColorPressed: color.convert(`color(${newColor} shade(10%))`),
-      }
+    changeUserThemeColor(key, newColor) {
+      this.userSelectColor[key] = newColor
     },
-    saveUserThemeColor(label) {
-      const theme = {
-        label,
-        key: this.userThemeOverrides,
-      }
-      console.log(theme)
-      // this.themeList = [...this.themeList, theme]
-      // this.currentTheme = theme
-      setItem(MY_THEME, theme)
+    saveUserThemeColor() {
+      setItem(USER_THEME_OVERRIDES, this.userSelectColor)
     },
   },
 })
