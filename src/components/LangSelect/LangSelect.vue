@@ -1,6 +1,6 @@
 <template>
   <n-dropdown trigger="hover" @select="handleSelect" :options="options">
-    <n-button quaternary>{{ language }}</n-button>
+    <n-button style="width: 70px" quaternary>{{ language }}</n-button>
   </n-dropdown>
 </template>
 

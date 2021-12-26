@@ -5,6 +5,7 @@
         <Breadrumb></Breadrumb>
       </div>
       <div class="right">
+        <HeaderSearch></HeaderSearch>
         <ChangeTheme></ChangeTheme>
         <DarkOrWhiteTheme></DarkOrWhiteTheme>
         <LangSelect></LangSelect>
@@ -26,6 +27,7 @@ import Breadrumb from './Breadrumb.vue'
 import LangSelect from '@/components/LangSelect/LangSelect.vue'
 import ChangeTheme from './ChangeTheme.vue'
 import DarkOrWhiteTheme from './DarkOrWhiteTheme.vue'
+import HeaderSearch from './HeaderSearch.vue'
 
 const { t } = useI18n()
 

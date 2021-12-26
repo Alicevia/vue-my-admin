@@ -5,6 +5,7 @@ export const LANG = 'lang'
 export const DEFAULT_LANG = 'zhCN'
 export const THEME = 'theme'
 export const USER_THEME_OVERRIDES = 'userTheme'
+export const TAGS_VIEW = 'tagsView'
 
 export const ROUTE = {
   LOGIN: 'login',

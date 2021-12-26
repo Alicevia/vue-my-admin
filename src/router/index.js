@@ -7,6 +7,9 @@ const routes = [
     path: '/login',
     name: ROUTE.LOGIN,
     component: () => import('../views/login/index.vue'),
+    meta: {
+      title: ROUTE.LOGIN,
+    },
   },
 
   {
@@ -43,7 +46,7 @@ const privateRoutes = [
     path: '/user',
     name: ROUTE.USER,
     component: BasicLayout,
-    redirect: '/user/manage',
+    redirect: '/user/userManage',
     meta: {
       title: ROUTE.USER,
       icon: 'personnel',
@@ -146,5 +149,4 @@ const router = new CreateRouter({
   history: createWebHistory(),
   routes: [...routes, ...privateRoutes],
 })
-
 export default router

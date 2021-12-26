@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 import { login, userInfo } from '@/api/user'
 import { getItem, removeAllItem, setItem } from '@/utils/storage'
-import { ROUTE, TOKEN } from '@/constant'
+
+import { ROUTE, TOKEN, TAGS_VIEW } from '@/constant'
 import router from '@/router'
 import { setTimeStamp } from '@/utils/auth'
+import { generateMenus } from '@/utils/route'
 
 export default defineStore({
   id: 'user',
@@ -19,7 +21,13 @@ export default defineStore({
       username: '',
       _id: null,
     },
+    tagsViewList: getItem(TAGS_VIEW) || [],
   }),
+  getters: {
+    menuList() {
+      return generateMenus(router.getRoutes())
+    },
+  },
   actions: {
     async doLogin(params) {
       try {
@@ -47,6 +55,45 @@ export default defineStore({
       this.userInfo = {}
       removeAllItem()
       router.push('/login')
+    },
+    addTagsViewItem(route) {
+      const isExist = this.tagsViewList.some((item) => item.path == route.path)
+      if (!isExist) {
+        this.tagsViewList.push(route)
+        setItem(TAGS_VIEW, this.tagsViewList)
+      }
+    },
+    initTagsView(currentRoute) {
+      const len = this.tagsViewList.length
+      if (len == 0) {
+        router.push({ name: ROUTE.PROFILE }).then(() => {
+          setItem(TAGS_VIEW, this.tagsViewList)
+        })
+      } else {
+        const isExist = this.tagsViewList.some(
+          (item) => item.path == currentRoute.path,
+        )
+        if (!isExist) {
+          router.push(this.tagsViewList.at(-1)).then(() => {
+            setItem(TAGS_VIEW, this.tagsViewList)
+          })
+        } else {
+          setItem(TAGS_VIEW, this.tagsViewList)
+        }
+      }
+    },
+    removeTagsViewItem(index, currentRoute) {
+      this.tagsViewList.splice(index, 1)
+
+      this.initTagsView(currentRoute)
+    },
+    removeTagsRightItem(index, currentRoute) {
+      this.tagsViewList.splice(index)
+      this.initTagsView(currentRoute)
+    },
+    removeTagsOtherItem(index, currentRoute) {
+      this.tagsViewList = [this.tagsViewList[index]]
+      this.initTagsView(currentRoute)
     },
   },
 })
