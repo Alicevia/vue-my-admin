@@ -1,16 +1,32 @@
 <template>
-  <div class="profile">
-    <n-pagination :page-count="100" show-size-picker />
-    <div>{{ $t('navBar.logout') }}</div>
+  <div class="content">
+    <div class="top"></div>
+    <div class="bottom">
+      <n-layout-content
+        style="height: 100%; background-color: rgb(248, 88, 88)"
+        :native-scrollbar="false"
+      >
+        <div style="height: 1100px"></div>
+      </n-layout-content>
+    </div>
   </div>
 </template>
 
 <script setup></script>
 
 <style lang="scss" scoped>
-.profile {
-  background-color: rgb(87, 147, 236);
+.content {
   height: 100%;
-  overflow-y: auto;
+  flex-flow: column nowrap;
+  display: flex;
+  .top {
+    flex-shrink: 0;
+    height: 200px;
+    background-color: gray;
+  }
+  .bottom {
+    overflow: hidden;
+    flex-grow: 1;
+  }
 }
 </style>

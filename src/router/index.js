@@ -19,7 +19,7 @@ const routes = [
     component: BasicLayout,
     children: [
       {
-        path: '/profile',
+        path: 'profile',
         name: ROUTE.PROFILE,
         component: () => import('@/views/profile/index.vue'),
         meta: {
@@ -28,12 +28,12 @@ const routes = [
         },
       },
       {
-        path: '/404',
+        path: '404',
         name: ROUTE[404],
         component: () => import('@/views/error-page/404.vue'),
       },
       {
-        path: '/401',
+        path: '401',
         name: ROUTE[401],
         component: () => import('@/views/error-page/401.vue'),
       },

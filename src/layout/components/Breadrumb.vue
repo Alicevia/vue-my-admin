@@ -1,5 +1,5 @@
 <template>
-  <n-breadcrumb class="breadcrumb">
+  <n-breadcrumb style="margin-left: 10px">
     <transition-group name="breadcrumb">
       <n-breadcrumb-item
         @click="handleClick(item)"
@@ -40,16 +40,13 @@ watch(
   transition: all 0.5s;
 }
 
-.breadcrumb-enter-from,
+.breadcrumb-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
 .breadcrumb-leave-to {
   opacity: 0;
-  transform: translateX(25px);
-}
-.breadcrumb-leave-active {
+  transform: translateX(20px);
   position: absolute;
-}
-
-.breadcrumb {
-  margin-left: 20px;
 }
 </style>

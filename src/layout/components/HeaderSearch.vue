@@ -30,6 +30,7 @@ function generateSearchList(routes, title) {
     pre.push({
       path: item.path,
       title: title ? [title, item.title] : [item.title],
+      name: item.name,
     })
     if (item.children && item.children.length > 0) {
       pre.push(...generateSearchList(item.children, item.title))
@@ -59,17 +60,21 @@ const selectState = reactive({
     selectState.value = value
   },
   'onUpdate:value': function (value) {
-    router.push({ path: value })
+    console.log(value)
+    router.push({ name: value })
   },
   filterable: true,
   remote: true,
   virtualScroll: false,
   options: computed(() =>
-    searchState.fuse.search(selectState.value).map(({ item }) => ({
-      label:
-        item.title.length > 1 ? item.title.join('->') : item.title.toString(),
-      value: item.path,
-    })),
+    searchState.fuse.search(selectState.value).map(({ item }) => {
+      console.log(item)
+      return {
+        label:
+          item.title.length > 1 ? item.title.join('->') : item.title.toString(),
+        value: item.name,
+      }
+    }),
   ),
 })
 

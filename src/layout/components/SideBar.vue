@@ -9,7 +9,7 @@
     @collapse="menuState.collapsed = true"
     @expand="menuState.collapsed = false"
   >
-    <n-layout-header bordered style="height: 50px">
+    <n-layout-header style="height: 50px">
       <div class="logo">
         <n-avatar size="small" :src="userInfo.avatar" />
         <h1 v-show="!menuState.collapsed" class="logo-title">ALICEVIA</h1>

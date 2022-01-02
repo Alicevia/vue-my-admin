@@ -1,34 +1,36 @@
 <template>
-  <div class="tags">
-    <n-tag
-      checkable
-      :checked="item.fullPath == route.fullPath"
-      class="item"
-      :class="{ active: item.fullPath == route.fullPath }"
-      v-for="(item, index) in user.tagsViewList"
-      :key="item.title"
-      @contextmenu.prevent="openTagContextMenu($event, index)"
-    >
-      <div class="content" @click="changeRoute(item)">
-        <span
-          v-show="item.path != '/profile'"
-          :class="{ dot: true, active: item.fullPath == route.fullPath }"
-        ></span>
-        {{ t(`route.${item.title}`) }}
-        <span
-          v-show="item.path != '/profile'"
-          @click.stop="handleClose(index, item)"
-          :class="{ close: true, active: item.fullPath == route.fullPath }"
-          >x</span
-        >
-      </div>
-    </n-tag>
-    <n-dropdown
-      placement="bottom-start"
-      trigger="manual"
-      v-bind="tagContextMenuState"
-    />
-  </div>
+  <n-layout-content content-style="width:fit-content" :native-scrollbar="false">
+    <div class="tags">
+      <n-tag
+        checkable
+        :checked="item.fullPath == route.fullPath"
+        class="item"
+        :class="{ active: item.fullPath == route.fullPath }"
+        v-for="(item, index) in user.tagsViewList"
+        :key="item.title"
+        @contextmenu.prevent="openTagContextMenu($event, index)"
+      >
+        <div class="content" @click="changeRoute(item)">
+          <span
+            v-show="item.path != '/profile'"
+            :class="{ dot: true, active: item.fullPath == route.fullPath }"
+          ></span>
+          {{ t(`route.${item.title}`) }}
+          <span
+            v-show="item.path != '/profile'"
+            @click.stop="handleClose(index, item)"
+            :class="{ close: true, active: item.fullPath == route.fullPath }"
+            >x</span
+          >
+        </div>
+      </n-tag>
+      <n-dropdown
+        placement="bottom-start"
+        trigger="manual"
+        v-bind="tagContextMenuState"
+      />
+    </div>
+  </n-layout-content>
 </template>
 
 <script setup>
@@ -108,13 +110,15 @@ watch(
 <style lang="scss" scoped>
 .tags {
   height: 40px;
+  width: 100%;
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   padding-left: 10px;
-  border-bottom: 1px solid #eee;
+
   .item {
     margin-right: 10px;
-    border: 1px solid #aaa;
+    border: 1px solid rgb(223, 223, 223);
 
     .content {
       display: flex;
