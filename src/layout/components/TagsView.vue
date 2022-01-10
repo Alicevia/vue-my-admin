@@ -39,6 +39,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import userStore from '@/store/userStore'
 import appStore from '@/store/appStore'
+import { ROUTE } from '@/constant'
 
 const { t } = useI18n()
 const app = appStore()
@@ -96,9 +97,12 @@ const openTagContextMenu = (e, index) => {
   tagContextMenuState.y = y
   tagContextMenuState.selectIndex = index
 }
+
+const tagsViewBlack = [ROUTE.LOGIN]
 watch(
   route,
   (newValue) => {
+    if (tagsViewBlack.includes(newValue.name)) return
     const temp = { ...newValue }
     delete temp.redirectedFrom
     temp.title = newValue.meta.title

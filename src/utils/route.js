@@ -15,35 +15,53 @@ function isEmpty(data) {
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
-// 将meta内的字段拷贝到外层
-function assignMeta(ary) {
-  for (let index = 0; index < ary.length; index++) {
-    const item = ary[index]
-    if (item.meta?.icon) {
-      Object.assign(item, item.meta || {})
-      item.icon = renderIcon(BookOutline)
-      item.title = t(`route.${item.title}`)
-    } else {
-      ary.splice(index, 1)
-      index--
-    }
-  }
-}
-export const generateMenus = (routes) => {
-  const childrenRoutes = routes.filter((item) => item.children.length > 0)
 
-  const result = childrenRoutes.reduce((pre, item) => {
-    if (item.path == '/') {
-      assignMeta(item.children)
-      pre.push(...item.children.filter((route) => route.meta?.icon))
-    } else {
-      Object.assign(item, item.meta || {})
-      item.icon = renderIcon(BookOutline)
-      assignMeta(item.children)
-      item.title = t(`route.${item.title}`)
-      pre.push(item)
+function getRouterMap(routes) {
+  // 获取所有的子路由
+  const childrenRoutes = routes.reduce((pre, item) => {
+    if (item.children && item.children.length > 0) {
+      pre.push(...item.children)
+    }
+    return pre
+  }, [])
+  // 反向过滤出路由表
+  return routes.filter(
+    (route) => !childrenRoutes.some((item) => item.name === route.name),
+  )
+}
+
+export const generateMenus = (routes) => {
+  const allRoutes = getRouterMap(routes)
+  const result = allRoutes.reduce((pre, item) => {
+    if (!['/login', '/:catchAll(.*)'].includes(item.path)) {
+      if (isEmpty(item.meta) && isEmpty(item.children)) return pre
+      if (isEmpty(item.meta) && !isEmpty(item.children)) {
+        pre.push(...generateMenus(item.children))
+        return pre
+      }
+      const temp = {}
+      temp.icon = renderIcon(BookOutline)
+      temp.label = t(`route.${item.meta.title}`)
+      temp.key = item.name
+      if (!isEmpty(item.children)) {
+        temp.children = generateMenus(item.children)
+      }
+      pre.push(temp)
     }
     return pre
   }, [])
   return result
 }
+
+// {
+//   label:'用户',
+//   key:'用户',
+//   icon:'sf',
+//   children:[
+//     {
+//       label:'用户',
+//       key:'用户',
+//       icon:'sf',
+//     }
+//   ]
+// }

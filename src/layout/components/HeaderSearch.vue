@@ -21,6 +21,7 @@ import { computed, reactive } from 'vue'
 import Fuse from 'fuse.js'
 import { useRouter } from 'vue-router'
 import userStore from '@/store/userStore'
+import { generateMenus } from '@/utils/route'
 
 const router = useRouter()
 const user = userStore()
@@ -40,7 +41,7 @@ function generateSearchList(routes, title) {
 }
 // 搜索列表
 const searchState = reactive({
-  list: computed(() => generateSearchList(user.menuList)),
+  list: computed(() => generateSearchList(generateMenus(router.getRoutes()))),
   fuse: computed(
     () =>
       new Fuse(searchState.list, {
@@ -60,21 +61,17 @@ const selectState = reactive({
     selectState.value = value
   },
   'onUpdate:value': function (value) {
-    console.log(value)
     router.push({ name: value })
   },
   filterable: true,
   remote: true,
   virtualScroll: false,
   options: computed(() =>
-    searchState.fuse.search(selectState.value).map(({ item }) => {
-      console.log(item)
-      return {
-        label:
-          item.title.length > 1 ? item.title.join('->') : item.title.toString(),
-        value: item.name,
-      }
-    }),
+    searchState.fuse.search(selectState.value).map(({ item }) => ({
+      label:
+        item.title.length > 1 ? item.title.join('->') : item.title.toString(),
+      value: item.name,
+    })),
   ),
 })
 

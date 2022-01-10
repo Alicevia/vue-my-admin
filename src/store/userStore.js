@@ -5,7 +5,7 @@ import { getItem, removeAllItem, setItem } from '@/utils/storage'
 import { ROUTE, TOKEN, TAGS_VIEW } from '@/constant'
 import router from '@/router'
 import { setTimeStamp } from '@/utils/auth'
-import { generateMenus } from '@/utils/route'
+import privateRoutesFnAry from '@/router/module'
 
 export default defineStore({
   id: 'user',
@@ -23,11 +23,7 @@ export default defineStore({
     },
     tagsViewList: getItem(TAGS_VIEW) || [],
   }),
-  getters: {
-    menuList() {
-      return generateMenus(router.getRoutes())
-    },
-  },
+  getters: {},
   actions: {
     async doLogin(params) {
       try {
@@ -50,11 +46,35 @@ export default defineStore({
       }
       return Promise.resolve()
     },
+    generateRoutes() {
+      const { menus } = this.userInfo.permission
+      if (menus) {
+        // const routes = privateRoutesFnAry.reduce((pre, item) => {
+        //   pre.push(...item(menus).filter((a) => a))
+        //   return pre
+        // }, [])
+        const routes = privateRoutesFnAry
+          .map((item) => item(menus))
+          .filter((item) => item)
+        return routes
+      }
+      return false
+    },
     logout() {
       this.token = ''
+      router.push('/login')
+      this.resetRoutes()
       this.userInfo = {}
       removeAllItem()
-      router.push('/login')
+    },
+    resetRoutes() {
+      if (this.userInfo.permission.menus) {
+        this.userInfo.permission?.menus.forEach((item) => {
+          router.removeRoute(item)
+        })
+        router.removeRoute(ROUTE.USER)
+        router.removeRoute(ROUTE.ARTICLE)
+      }
     },
     addTagsViewItem(route) {
       const isExist = this.tagsViewList.some((item) => item.path == route.path)

@@ -26,24 +26,25 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { reactive, computed } from 'vue'
 import userStore from '@/store/userStore'
+import { generateMenus } from '@/utils/route'
 
 const user = userStore()
 const userInfo = computed(() => user.userInfo)
 
 const router = useRouter()
+const route = useRoute()
 const menuState = reactive({
   collapsedWidth: 64,
   collapsedIconSize: 22,
   collapsed: false,
-  options: computed(() => user.menuList),
-  keyField: 'title',
-  labelField: 'title',
-  'onUpdate:value': (key, item) => {
-    router.push({ name: item.name })
+  options: computed(() => generateMenus(router.getRoutes())),
+  'onUpdate:value': (key) => {
+    router.push({ name: key })
   },
+  value: computed(() => route.name),
 })
 </script>
 <style lang="scss" scoped>
