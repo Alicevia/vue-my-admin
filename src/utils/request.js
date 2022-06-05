@@ -10,6 +10,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (cfg) => {
     const user = userStore()
+    cfg.headers.icode = 'D07E8BA436F145CB'
     if (user.token) {
       if (isCheckTimeout()) {
         user.logout() // token主动设置超时
